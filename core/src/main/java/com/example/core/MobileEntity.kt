@@ -2,7 +2,7 @@ package com.example.core
 
 import com.google.gson.annotations.SerializedName
 
-data class MobilesListEntity constructor(
+data class MobileEntity constructor(
     @SerializedName("thumbImageURL")
     val thumbImageURL: String,
     @SerializedName("brand")

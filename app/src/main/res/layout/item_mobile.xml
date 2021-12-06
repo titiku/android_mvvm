@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="com.example.core.MobilesListEntity" />
+            type="com.example.core.MobileEntity" />
     </data>
 
 
@@ -38,6 +38,16 @@
             app:layout_constraintStart_toEndOf="@id/ivMobile"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0" />
+
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/unfavorite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivMobile" />
 
         <TextView
             android:id="@+id/tvDesc"

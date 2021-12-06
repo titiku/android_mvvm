@@ -6,10 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android_mvvm.databinding.ItemMobileBinding
-import com.example.core.MobilesListEntity
+import com.example.core.MobileEntity
 
 class MobilesListAdapter : RecyclerView.Adapter<MobilesListAdapter.MobileViewHolder>() {
-    private var list = listOf<MobilesListEntity>()
+    private var list = listOf<MobileEntity>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MobileViewHolder {
         return MobileViewHolder(
@@ -30,7 +30,7 @@ class MobilesListAdapter : RecyclerView.Adapter<MobilesListAdapter.MobileViewHol
         return list.size
     }
 
-    fun setMobilesList(list: List<MobilesListEntity>) {
+    fun setMobilesList(list: List<MobileEntity>) {
         this.list = list
     }
 
@@ -38,10 +38,10 @@ class MobilesListAdapter : RecyclerView.Adapter<MobilesListAdapter.MobileViewHol
         private val binding: ItemMobileBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bindTo(mobilesListEntity: MobilesListEntity) {
-            binding.model = mobilesListEntity
+        fun bindTo(mobileEntity: MobileEntity) {
+            binding.model = mobileEntity
             Glide.with(binding.ivMobile.context)
-                .load(mobilesListEntity.thumbImageURL)
+                .load(mobileEntity.thumbImageURL)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.ivMobile)
         }

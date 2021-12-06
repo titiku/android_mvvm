@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface MobilesListService {
     @GET("api/mobiles")
-    fun getMobilesList(): Single<List<MobilesListEntity>>
+    fun getMobilesList(): Single<List<MobileEntity>>
 }

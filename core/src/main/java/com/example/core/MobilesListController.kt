@@ -7,16 +7,16 @@ import javax.inject.Inject
 
 class MobilesListController
 @Inject constructor(
-    private var api: MobilesListApi
+    private var service: MobilesListService
 ) {
     fun getMobilesList(
-        onSuccess: (List<MobilesListEntity>) -> Unit,
+        onSuccess: (List<MobileEntity>) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        api.getMobilesList().subscribeOn(Schedulers.io())
+        service.getMobilesList().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<List<MobilesListEntity>>() {
-                override fun onSuccess(list: List<MobilesListEntity>) {
+            .subscribe(object : DisposableSingleObserver<List<MobileEntity>>() {
+                override fun onSuccess(list: List<MobileEntity>) {
                     onSuccess(list)
                 }
 
