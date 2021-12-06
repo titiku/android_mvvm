@@ -1,5 +1,5 @@
 package com.example.android_mvvm
 
-class MobilesList constructor(
+data class MobilesList constructor(
     val name: String
 )

@@ -1,21 +1,29 @@
 package com.example.android_mvvm
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.*
+import com.example.core.MobilesListController
+import com.example.core.MobilesListEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-    var mobilesList = MutableLiveData<String>()
-    fun onTimeFinished() = mobilesList
+@HiltViewModel
+class MainViewModel
+@Inject constructor(
+    private var controller: MobilesListController
+) : ViewModel() {
+    private var _mobilesList = MutableLiveData<List<MobilesListEntity>>()
+    val mobilesList: LiveData<List<MobilesListEntity>> = _mobilesList
 
-    fun setMobilesList() {
-        mobilesList.value = MobilesList("test").name
-        CoroutineScope(Dispatchers.IO).launch {
-            delay(3000)
-//            val list = listOf(MobilesList("test"))
-            withContext(Dispatchers.Main) {
-                mobilesList.value = MobilesList("test123").name
-            }
-        }
+    fun getMobilesList() {
+        controller.getMobilesList(
+            {
+                Log.i("balltest", it.toString())
+                _mobilesList.value = it
+            }, {
+                Log.i("balltest", it.toString())
+            })
     }
 }
