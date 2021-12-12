@@ -3,9 +3,11 @@ package com.example.core
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class MobilesListController
+class MobilesListRepository
 @Inject constructor(
     private var service: MobilesListService
 ) {
@@ -24,5 +26,18 @@ class MobilesListController
                     onError(e)
                 }
             })
+    }
+
+    fun getMobilesListFlow(): Flow<Resource<List<MobileEntity>>> {
+        return flow {
+            emit(Resource.Loading)
+            val resource = try {
+                val response = service.getMobilesListFLow()
+                Resource.Success(response)
+            } catch (e: Throwable) {
+                Resource.Fail(e)
+            }
+            emit(resource)
+        }
     }
 }

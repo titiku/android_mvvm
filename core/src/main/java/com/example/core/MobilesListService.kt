@@ -6,4 +6,7 @@ import retrofit2.http.GET
 interface MobilesListService {
     @GET("api/mobiles")
     fun getMobilesList(): Single<List<MobileEntity>>
+
+    @GET("api/mobiles")
+    suspend fun getMobilesListFLow(): List<MobileEntity>
 }

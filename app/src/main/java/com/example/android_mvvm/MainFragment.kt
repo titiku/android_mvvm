@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_mvvm.databinding.FragmentMainBinding
+import com.example.core.MobileEntity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), PageChangeListener {
     @Inject
     lateinit var string: String
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
-    private val adapter = MobilesListAdapter()
+    private val adapter = MobilesListAdapter(::onClickFavorite)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +35,11 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         subscribeObservers()
         initView()
-        viewModel.getMobilesList()
+        viewModel.getMobilesList(getPageIndex())
+    }
+
+    override fun onPageChangeListener() {
+        viewModel.getMobilesList(getPageIndex())
     }
 
     private fun initView() {
@@ -49,8 +54,22 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun onClickFavorite(mobileEntity: MobileEntity) {
+        viewModel.clickFavorite(mobileEntity, getPageIndex())
+    }
+
+    private fun getPageIndex(): Int {
+        return arguments?.getInt(PAGE_INDEX, 0) ?: 0
+    }
+
     companion object {
+        private const val PAGE_INDEX = "PAGE_INDEX"
+
         @JvmStatic
-        fun newInstance() = MainFragment()
+        fun newInstance(pageIndex: Int) = MainFragment().apply {
+            arguments = Bundle().apply {
+                putInt(PAGE_INDEX, pageIndex)
+            }
+        }
     }
 }

@@ -1,8 +1,10 @@
 package com.example.core
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -58,5 +60,11 @@ class CoreModule {
     @Provides
     fun provideMobilesListService(retrofit: Retrofit): MobilesListService {
         return retrofit.create(MobilesListService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMobilesListCache(@ApplicationContext context: Context): MobilesListCache {
+        return MobilesListCache(context)
     }
 }
