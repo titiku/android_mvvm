@@ -40,4 +40,30 @@ class MobilesListRepository
             emit(resource)
         }
     }
+
+    fun getMobileDetail(mobileId: Int): Flow<Resource<MobileEntity>> {
+        return flow {
+            emit(Resource.Loading)
+            val resource = try {
+                val response = service.getMobileDetail(mobileId)
+                Resource.Success(response)
+            } catch (e: Throwable) {
+                Resource.Fail(e)
+            }
+            emit(resource)
+        }
+    }
+
+    fun getMobileImage(mobileId: Int): Flow<Resource<List<MobileImageEntity>>> {
+        return flow {
+            emit(Resource.Loading)
+            val resource = try {
+                val response = service.getMobileDetailImage(mobileId)
+                Resource.Success(response)
+            } catch (e: Throwable) {
+                Resource.Fail(e)
+            }
+            emit(resource)
+        }
+    }
 }

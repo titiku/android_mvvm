@@ -23,7 +23,6 @@ class CoreModule {
         return "teststring"
     }
 
-
     @Singleton
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {

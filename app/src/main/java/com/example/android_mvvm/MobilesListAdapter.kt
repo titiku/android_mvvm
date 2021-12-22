@@ -8,8 +8,10 @@ import com.bumptech.glide.Glide
 import com.example.android_mvvm.databinding.ItemMobileBinding
 import com.example.core.MobileEntity
 
-class MobilesListAdapter(private val onClickFavorite: (MobileEntity) -> Unit) :
-    RecyclerView.Adapter<MobilesListAdapter.MobileViewHolder>() {
+class MobilesListAdapter(
+    private val onClickFavorite: (MobileEntity) -> Unit,
+    private val onClickMobile: (MobileEntity) -> Unit
+) : RecyclerView.Adapter<MobilesListAdapter.MobileViewHolder>() {
     private var list = listOf<MobileEntity>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MobileViewHolder {
@@ -48,6 +50,9 @@ class MobilesListAdapter(private val onClickFavorite: (MobileEntity) -> Unit) :
 
             binding.ivFavorite.setOnClickListener {
                 onClickFavorite(mobileEntity)
+            }
+            binding.itemMobile.setOnClickListener {
+                onClickMobile(mobileEntity)
             }
         }
     }

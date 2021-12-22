@@ -18,7 +18,7 @@ class MainFragment : Fragment(), PageChangeListener {
     lateinit var string: String
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
-    private val adapter = MobilesListAdapter(::onClickFavorite)
+    private val adapter = MobilesListAdapter(::onClickFavorite, ::onClickMobile)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +56,18 @@ class MainFragment : Fragment(), PageChangeListener {
 
     private fun onClickFavorite(mobileEntity: MobileEntity) {
         viewModel.clickFavorite(mobileEntity, getPageIndex())
+    }
+
+    private fun onClickMobile(mobileEntity: MobileEntity) {
+        activity?.apply {
+            startActivity(
+                MobileDetailActivity.createIntent(
+                    this,
+                    mobileEntity.id,
+                    mobileEntity.name
+                )
+            )
+        }
     }
 
     private fun getPageIndex(): Int {
